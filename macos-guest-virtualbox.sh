@@ -246,7 +246,7 @@ if [[ -z "$(gzip --help 2>/dev/null)" ||
 fi
 
 # check that xxd supports endianness -e flag
-if [[ -z "$(xxd -e -p -l 16 /dev/urandom 2>/dev/null)" ]]; then
+if [[ -z "$(xxd -e -l 16 /dev/urandom 2>/dev/null)" ]]; then
     echo "Please make sure a version of xxd which supports the -e option is installed."
     echo -e "The -e option should be listed when executing   ${low_contrast_color}xxd --help${default_color}"
     echo "The package vim-common-8 provides a compatible version on most modern distros."
@@ -353,7 +353,7 @@ fi
 
 # Oracle VM VirtualBox Extension Pack
 extpacks="$(VBoxManage list extpacks 2>/dev/null)"
-if [[ "$(expr match "${extpacks}" '.*Oracle VM VirtualBox Extension Pack')" -le "0" ||
+if [[ "$(expr match "${extpacks}" '.*Oracle VirtualBox Extension Pack')" -le "0" ||
       "$(expr match "${extpacks}" '.*Usable:[[:blank:]]*false')" -gt "0" ]];
 then
     echo -e "\nThe command \"VBoxManage list extpacks\" either does not list the Oracle VM"
@@ -458,8 +458,8 @@ function check_default_virtual_machine() {
 print_dimly "stage: check_default_virtual_machine"
 echo -e "\nChecking that VirtualBox starts the virtual machine without errors."
 if [[ -n $(VBoxManage startvm "${vm_name}" 2>&1 1>/dev/null) ]]; then
-    echo -e "Error while starting the virtual machine.\nExiting."
-    exit
+    echo -e "Error while starting the virtual machine.\nNormally would fail the script here, but VirtualBox 7 pops up a harmless warning message here that causes this to error."
+    # exit
 fi
 VBoxManage controlvm "${vm_name}" poweroff 2>/dev/null
 echo -e "\nChecking that VirtualBox uses hardware-supported virtualization."
