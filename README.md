@@ -1,3 +1,24 @@
+# Updates to the original script
+
+- Fixes `xxd` parameters to work with newer versions of `xxd`. (I can't recall what I had to change here, but I faintly recall it having to do with not being able to combine the `-p` and `-e` flags.)
+- Doesn't fail script if VM fails to start for the first time (If I recall correctly, VirtualBox 7 displays a warning message when the VM is abruptly terminated. You can work around this by having VirtualBox ignore this warning, but you'd need to pause the script in some fashion to be able to do this.)
+- Looks for the new name of the extension pack in VirtualBox 7 to use USB 3
+
+## Additional notes of mine
+
+VirtualBox does not appear to recognize my iPhone. I vaguely recall it being able to work before, but no matter what combination of things I tried, it will simply not show up at all. I've seen people have success with VMware Workstation/Player, so I decided to migrate the VM built from this script to VMware. Here are my notes on that:
+
+- Export the VM as OVA version 1.0 (vmware does not support past 1.0 apparently)
+  - Alternatively, export just the main hard disk into a format vmware recognizes, and you can skip a couple steps
+- Use [Unlocker tool.](https://github.com/WeshBg/auto-unlocker)
+- Import OVA into VMware. Do not start this VM, it will just hang on bootup.
+- Create new VM, MacOS 10.15
+- Remove and Add new hard disk, using the existing hard disk from the imported VM
+- Boot that new VM.
+
+It appears I didn't need to do anything to the vmx files.
+
+---
 
 ![macOS inside a VirtualBox window with the dock positioned on the left](https://repository-images.githubusercontent.com/156108442/c501b100-0e5a-11eb-8b49-90afd63f5d03 "macos-guest-virtualbox.sh")
 
